@@ -1,0 +1,1 @@
+type ToDoList = string[];

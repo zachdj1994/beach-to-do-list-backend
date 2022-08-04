@@ -1,6 +1,8 @@
 import express from "express";
+import ToDoListService from './ToDoListService';
 const app = express()
 const port = 8080;
+const toDoListService = new ToDoListService();
 
 app.get( "/", ( request, response ) => {
     response.send(
@@ -12,15 +14,19 @@ app.get( "/", ( request, response ) => {
     );
 });
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    next();
+});
+
 app.get( "/toDoListItems", ( request, response ) => {
     response.send(
-        {toDoItems: [
-            'Vibe',
-            'Listen to Beach Boys or something?',
-            "SUNSCREEN DON'T FORGET AGAIN",
-            'Get a closer look at that weird smelly thing that just washed up',
-            'Aloe vera (I forgot sunscreen again)',
-        ]}
+        toDoListService.getToDoList()
     );
 });
 
