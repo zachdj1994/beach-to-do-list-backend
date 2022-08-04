@@ -1,0 +1,22 @@
+{
+  "name": "beach-to-do-list-backend",
+  "version": "1.0.0",
+  "description": "The backend for the beach to do",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachdj1994/beach-to-do-list-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zachdj1994/beach-to-do-list-backend/issues"
+  },
+  "homepage": "https://github.com/zachdj1994/beach-to-do-list-backend#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
