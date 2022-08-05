@@ -1,10 +1,5 @@
-import ToDoListRepository from './ToDoListRepository';
+import {getToDoListFromRepository} from './ToDoListRepository';
 
-class ToDoListService {
-    getToDoList(): ToDoList {
-        const toDoListRepository = new ToDoListRepository();
-        return toDoListRepository.getToDoList();
-    }
+export const getToDoList = (): ToDoList =>  {
+    return getToDoListFromRepository();
 }
-
-export default ToDoListService
