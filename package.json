@@ -4,8 +4,8 @@
   "description": "The backend for the beach to do",
   "main": ".build/index.js",
   "scripts": {
+    "prestart": "tsc --build",
     "start": "node .",
-    "build": "tsc --build",
     "test": "jest --watch"
   },
   "repository": {

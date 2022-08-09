@@ -1,15 +1,11 @@
-import {getToDoListFromRepository} from './ToDoListRepository';
+import ToDoListRepository from './ToDoListRepository';
+import {Sequelize} from 'sequelize';
 
+const mockQuery = jest.fn();
 jest.mock('sequelize', () => {
     return {
         Sequelize: jest.fn(() => ({
-            query: jest.fn().mockResolvedValue([[
-                {text: 'Vibe'},
-                {text: 'Listen to the Pina Colada song or something?'},
-                {text: "SUNSCREEN DON'T FORGET AGAIN"},
-                {text: 'ooh, dolphins!!!'},
-                {text: 'Aloe vera (I forgot sunscreen again)'},
-            ]])
+            query: mockQuery
         }))
     };
 });
@@ -24,9 +20,18 @@ describe('The to do list repository', () => {
             'ooh, dolphins!!!',
             'Aloe vera (I forgot sunscreen again)',
         ];
+        const repository = new ToDoListRepository(new Sequelize());
+        mockQuery.mockResolvedValue([[
+            {text: 'Vibe'},
+            {text: 'Listen to the Pina Colada song or something?'},
+            {text: "SUNSCREEN DON'T FORGET AGAIN"},
+            {text: 'ooh, dolphins!!!'},
+            {text: 'Aloe vera (I forgot sunscreen again)'},
+        ]]);
 
-        const actual = await getToDoListFromRepository();
+        const actual = await repository.getToDoListFromRepository();
 
+        expect(mockQuery).toHaveBeenCalledWith('SELECT text FROM list_items;')
         expect(actual).toEqual(expected);
     });
 });

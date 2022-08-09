@@ -1,15 +1,22 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('postgres://zachjones:root@localhost:5432/to_do_list');
+class ToDoListRepository {
+        private sequelize: Sequelize;
 
+        constructor(sequelize: Sequelize) {
+                this.sequelize = sequelize;
+        }
 
-export const getToDoListFromRepository = async (): Promise<ToDoList> => {
-        const [results] = await sequelize.query('SELECT text FROM list_items;')
+        async getToDoListFromRepository(): Promise<ToDoList> {
+                const [results] = await this.sequelize.query('SELECT text FROM list_items;')
 
-        const toDoList: ToDoList = [];
-        results.map((result: ToDoListItem) => {
-            toDoList.push(result.text)
-        });
+                const toDoList: ToDoList = [];
+                results.map((result: ToDoListItem) => {
+                        toDoList.push(result.text)
+                });
 
-        return toDoList;
-};
+                return toDoList;
+        }
+}
+
+export default ToDoListRepository;
