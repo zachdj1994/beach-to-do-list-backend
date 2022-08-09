@@ -1,2 +1,3 @@
 type ToDoList = string[];
-type ToDoListItem = {text: string}
+type ToDoListEntity = ToDoListItem[];
+type ToDoListItem = {text: string};
