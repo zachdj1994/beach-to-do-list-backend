@@ -8,19 +8,19 @@ const mockGetToDoList = jest.spyOn(ToDoListRepository, 'getToDoListFromRepositor
 
 
 describe('The to do list service', () => {
-   it('returns the to do list items from the repository layer', () => {
+   it('returns the to do list items from the repository layer', async () => {
        const expected =  [
                'Vibe',
                'Listen to the Pina Colada song or something?',
                "SUNSCREEN DON'T FORGET AGAIN",
-               'Get a closer look at that weird smelly thing that just washed up',
+               'ooh, dolphins!!!',
                'Aloe vera (I forgot sunscreen again)',
            ];
 
 
-       mockGetToDoList.mockReturnValue(expected)
+       mockGetToDoList.mockResolvedValue(expected)
 
-       const actual = getToDoList();
+       const actual = await getToDoList();
 
        expect(ToDoListRepository.getToDoListFromRepository).toHaveBeenCalled()
        expect(actual).toEqual(expected);

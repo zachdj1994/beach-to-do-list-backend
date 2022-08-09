@@ -1,5 +1,5 @@
 import {getToDoListFromRepository} from './ToDoListRepository';
 
-export const getToDoList = (): ToDoList =>  {
+export const getToDoList = (): Promise<ToDoList> =>  {
     return getToDoListFromRepository();
 }

@@ -24,9 +24,11 @@ app.get( "/", ( request, response ) => {
 });
 
 app.get( "/toDoListItems", ( request, response ) => {
-    response.send(
-        getToDoList()
-    );
+    getToDoList().then((data: ToDoList) => {
+        response.send(
+            data
+        );
+    })
 });
 
 app.listen( port, () => {
