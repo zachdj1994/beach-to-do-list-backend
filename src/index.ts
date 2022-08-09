@@ -1,7 +1,14 @@
 import express from "express";
 import { getToDoList } from './ToDoListService';
+import { Sequelize } from 'sequelize';
+import ToDoListRepository from './ToDoListRepository';
+
 const app = express()
 const port = 8080;
+
+const userName = process.env.USER;
+const myTropicoolDatabase = new Sequelize(`postgres://${userName}:root@localhost:5432/to_do_list`);
+const myTropicoolRepository = new ToDoListRepository(myTropicoolDatabase);
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -24,7 +31,7 @@ app.get( "/", ( request, response ) => {
 });
 
 app.get( "/toDoListItems", ( request, response ) => {
-    getToDoList().then((data: ToDoList) => {
+    getToDoList(myTropicoolRepository).then((data: ToDoList) => {
         response.send(
             data
         );

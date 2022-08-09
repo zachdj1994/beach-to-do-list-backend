@@ -1,11 +1,15 @@
 import {getToDoList} from './ToDoListService';
-import * as ToDoListRepository from './ToDoListRepository';
+import ToDoListRepository from './ToDoListRepository';
+import {Sequelize} from 'sequelize';
 
-jest.mock('./ToDoListRepository', () => ({
-    getToDoListFromRepository: jest.fn()
-}));
-const mockGetToDoList = jest.spyOn(ToDoListRepository, 'getToDoListFromRepository');
+jest.mock('sequelize');
 
+const mockGetToDoList = jest.fn();
+jest.mock('./ToDoListRepository', () => {
+    return function () {
+        return {getToDoListFromRepository: mockGetToDoList}
+    }
+})
 
 describe('The to do list service', () => {
    it('returns the to do list items from the repository layer', async () => {
@@ -16,13 +20,12 @@ describe('The to do list service', () => {
                'ooh, dolphins!!!',
                'Aloe vera (I forgot sunscreen again)',
            ];
+       mockGetToDoList.mockReturnValue(expected)
 
 
-       mockGetToDoList.mockResolvedValue(expected)
+       const actual = await getToDoList(new ToDoListRepository(new Sequelize()));
 
-       const actual = await getToDoList();
-
-       expect(ToDoListRepository.getToDoListFromRepository).toHaveBeenCalled()
+       expect(mockGetToDoList).toHaveBeenCalled();
        expect(actual).toEqual(expected);
    })
 });
