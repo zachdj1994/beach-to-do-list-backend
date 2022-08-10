@@ -1,16 +1,17 @@
 import express from "express";
-import { getToDoList } from './ToDoListService';
+import ToDoListService from './ToDoListService';
 import { Sequelize } from 'sequelize';
 import ToDoListRepository from './ToDoListRepository';
 
-const app = express()
+const index = express()
 const port = 8080;
 
 const userName = process.env.USER;
 const myTropicoolDatabase = new Sequelize(`postgres://${userName}:root@localhost:5432/to_do_list`);
 const myTropicoolRepository = new ToDoListRepository(myTropicoolDatabase);
+const toDoListService = new ToDoListService(myTropicoolRepository)
 
-app.use(function (req, res, next) {
+index.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -22,7 +23,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get( "/", ( request, response ) => {
+index.get( "/", (request, response ) => {
     response.send(
         {pinaColada: {
                 pineappleJuice: "4.5 oz",
@@ -32,19 +33,20 @@ app.get( "/", ( request, response ) => {
     );
 });
 
-app.get( "/toDoListItems", ( request, response ) => {
-    getToDoList(myTropicoolRepository).then((data: ToDoList) => {
+index.get( "/toDoListItems", (request, response ) => {
+    toDoListService.getToDoList().then((data: ToDoList) => {
         response.send(
             data
         );
     });
 });
 
-app.post( "/toDoListItems", express.json({type: '*/*'}), ( request, response ) => {
+index.post( "/toDoListItems", express.json({type: '*/*'}), (request, response ) => {
+    toDoListService.addToDoListItem();
     console.log(request.body);
     response.json(request.body);
 });
 
-app.listen( port, () => {
+index.listen( port, () => {
     console.log( `server started at http://localhost:${ port }` );
 } );
