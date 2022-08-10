@@ -23,7 +23,7 @@ describe('The to do list repository', () => {
         const repository = new ToDoListRepository(new Sequelize());
         mockQuery.mockResolvedValue([expected]);
 
-        const actual: ToDoListEntity = await repository.getToDoListFromRepository();
+        const actual: ToDoListEntity = await repository.getAllToDoListItems();
 
         expect(mockQuery).toHaveBeenCalledWith('SELECT text FROM list_items;')
         expect(actual).toEqual(expected);

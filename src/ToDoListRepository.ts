@@ -7,7 +7,7 @@ class ToDoListRepository {
                 this.sequelize = sequelize;
         }
 
-        async getToDoListFromRepository(): Promise<ToDoListEntity> {
+        async getAllToDoListItems(): Promise<ToDoListEntity> {
                 const [results] = await this.sequelize.query('SELECT text FROM list_items;')
 
                 const toDoList: ToDoListEntity = [];

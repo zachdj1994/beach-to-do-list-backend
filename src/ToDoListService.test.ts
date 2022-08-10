@@ -7,7 +7,7 @@ jest.mock('sequelize');
 const mockGetToDoList = jest.fn();
 jest.mock('./ToDoListRepository', () => {
     return function () {
-        return {getToDoListFromRepository: mockGetToDoList}
+        return {getAllToDoListItems: mockGetToDoList}
     }
 })
 
