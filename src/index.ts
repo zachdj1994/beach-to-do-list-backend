@@ -17,6 +17,8 @@ app.use(function (req, res, next) {
 
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
+    express.json();
+
     next();
 });
 
@@ -35,7 +37,12 @@ app.get( "/toDoListItems", ( request, response ) => {
         response.send(
             data
         );
-    })
+    });
+});
+
+app.post( "/toDoListItems", express.json({type: '*/*'}), ( request, response ) => {
+    console.log(request.body);
+    response.json(request.body);
 });
 
 app.listen( port, () => {

@@ -34,5 +34,5 @@ describe('The to do list service', () => {
 
        expect(mockGetToDoList).toHaveBeenCalled();
        expect(actual).toEqual(expected);
-   })
+   });
 });
