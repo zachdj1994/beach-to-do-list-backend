@@ -7,7 +7,7 @@ class ToDoListRepository {
                 this.sequelize = sequelize;
         }
 
-        async insertToDoListItem(toDoListEntity: ToDoListEntity): Promise<object> {
+        async insertToDoListItem(toDoList: ToDoList): Promise<object> {
                 return Promise.resolve({});
         }
 
@@ -15,7 +15,7 @@ class ToDoListRepository {
                 const [results] = await this.sequelize.query('SELECT text FROM list_items;')
 
                 const toDoList: ToDoListEntity = [];
-                results.map((result: ToDoListItem) => {
+                results.map((result: ToDoListEntityItem) => {
                         toDoList.push(result)
                 });
 

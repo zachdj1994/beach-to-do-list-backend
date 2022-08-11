@@ -42,7 +42,7 @@ index.get( "/toDoListItems", (request, response ) => {
 });
 
 index.post( "/toDoListItems", express.json({type: '*/*'}), (request, response ) => {
-    toDoListService.addToDoListItem();
+    toDoListService.addToDoListItem(request.body);
     console.log(request.body);
     response.json(request.body);
 });

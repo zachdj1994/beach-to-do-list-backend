@@ -6,13 +6,13 @@ class ToDoListService {
         this.toDoListRepository = toDoListRepository;
     }
 
-    async addToDoListItem(toDoList: ToDoList): Promise<object> {
-        const toDoListEntity: ToDoListEntity = [];
-        toDoList.map((item: string) => {
-            toDoListEntity.push({text: item})
+    async addToDoListItem(toDoListRequest: ToDoListRequest): Promise<object> {
+        const toDoList: ToDoList = [];
+        toDoListRequest.map((item: ToDoListRequestItem) => {
+            toDoList.push(item.item)
         });
 
-        return await this.toDoListRepository.insertToDoListItem(toDoListEntity);
+        return await this.toDoListRepository.insertToDoListItem(toDoList);
     }
 
     async getToDoList (): Promise<ToDoList> {
