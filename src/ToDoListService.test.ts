@@ -44,17 +44,11 @@ describe('The to do list service', () => {
     });
 
     describe('addToDoListItem',  () => {
-        it('adds a list of items to the repository', async () => {
-            const expected = [
-                'Vibe',
-                'Listen to the Pina Colada song or something?'
-            ];
+        it('adds an item to the repository', async () => {
+            const expected = 'Vibe';
             mockInsertToDoListItem.mockResolvedValue({});
 
-            const actual = await service.addToDoListItem([
-                {item: 'Vibe'},
-                {item: 'Listen to the Pina Colada song or something?'}
-            ]);
+            const actual = await service.addToDoListItem({item: 'Vibe'});
 
             expect(mockInsertToDoListItem).toHaveBeenCalledWith(expected);
             expect(actual).toEqual({});

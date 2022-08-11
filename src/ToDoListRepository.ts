@@ -7,7 +7,8 @@ class ToDoListRepository {
                 this.sequelize = sequelize;
         }
 
-        async insertToDoListItem(toDoList: ToDoList): Promise<object> {
+        async insertToDoListItem(toDoListItem: string): Promise<object> {
+                this.sequelize.query(`INSERT INTO list_items (text) VALUES ('${toDoListItem}');`);
                 return Promise.resolve({});
         }
 
