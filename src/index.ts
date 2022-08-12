@@ -45,6 +45,10 @@ index.post( "/toDoListItems", express.json({type: '*/*'}), (request, response ) 
     });
 });
 
+index.delete( "/toDoListItems", (request, response ) => {
+    toDoListService.deleteToDoListItemById(request.query as DeleteItemRequest);
+});
+
 index.listen( port, () => {
     console.log( `server started at http://localhost:${ port }` );
 } );

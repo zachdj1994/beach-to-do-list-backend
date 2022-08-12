@@ -12,6 +12,8 @@ jest.mock('sequelize', () => {
 
 
 describe('The to do list repository', () => {
+    const repository = new ToDoListRepository(new Sequelize());
+
     beforeEach(() => {
         mockQuery.mockReset();
     });
@@ -25,7 +27,6 @@ describe('The to do list repository', () => {
                 {id: 4, text: 'ooh, dolphins!!!'},
                 {id: 6, text: 'Aloe vera (I forgot sunscreen again)'},
             ];
-            const repository = new ToDoListRepository(new Sequelize());
             mockQuery.mockResolvedValue([expected]);
 
             const actual: ToDoListEntity = await repository.getAllToDoListItems();
@@ -37,7 +38,6 @@ describe('The to do list repository', () => {
 
     describe('insertToDoListItem', () => {
        it('inserts an item into the db', () => {
-           const repository = new ToDoListRepository(new Sequelize());
            mockQuery.mockResolvedValue([[{id: 1}]]);
 
            repository.insertToDoListItem('Vibe');
@@ -46,12 +46,22 @@ describe('The to do list repository', () => {
        });
 
        it('returns the auto incremented id', async () => {
-           const repository = new ToDoListRepository(new Sequelize());
            const expected: ToDoListEntityItem = {id: 1};
            mockQuery.mockResolvedValue([[{id: 1}]]);
 
            const actual = await repository.insertToDoListItem('Vibe');
+
            expect(actual).toEqual(expected);
        });
+    });
+
+    describe('deleteToDoListItemById', () => {
+        it('deletes an item from the db by id', () => {
+            const idOfItemToDelete: ToDoListEntityItem = {id: 1};
+
+            repository.deleteToDoListItemById(idOfItemToDelete);
+
+            expect(mockQuery).toHaveBeenCalledWith('DELETE FROM list_items WHERE id = 1')
+        });
     });
 });

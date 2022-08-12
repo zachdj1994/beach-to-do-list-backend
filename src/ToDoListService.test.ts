@@ -6,11 +6,13 @@ jest.mock('sequelize');
 
 const mockGetToDoList = jest.fn();
 const mockInsertToDoListItem = jest.fn();
+const mockDeleteToDoListItemById = jest.fn();
 jest.mock('./ToDoListRepository', () => {
     return function () {
         return {
             getAllToDoListItems: mockGetToDoList,
-            insertToDoListItem: mockInsertToDoListItem
+            insertToDoListItem: mockInsertToDoListItem,
+            deleteToDoListItemById: mockDeleteToDoListItemById
         }
     }
 })
@@ -60,6 +62,16 @@ describe('The to do list service', () => {
             const actual: ToDoListItem = await service.addToDoListItem({item: 'Vibe'});
 
             expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('deleteToDoListItemById', () => {
+        it('removes an item from the repository by id', () => {
+            const request: DeleteItemRequest = {id: '1'};
+            const expected: ToDoListEntityItem = {id: 1};
+
+            service.deleteToDoListItemById(request);
+            expect(mockDeleteToDoListItemById).toHaveBeenCalledWith(expected);
         });
     });
 });

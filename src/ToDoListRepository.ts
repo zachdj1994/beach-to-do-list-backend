@@ -26,6 +26,10 @@ class ToDoListRepository {
 
                 return toDoList;
         }
+
+        deleteToDoListItemById(itemId: ToDoListEntityItem): void {
+                this.sequelize.query(`DELETE FROM list_items WHERE id = ${itemId.id}`);
+        }
 }
 
 export default ToDoListRepository;

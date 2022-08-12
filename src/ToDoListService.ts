@@ -21,6 +21,10 @@ class ToDoListService {
 
         return toDoList;
     }
+
+    deleteToDoListItemById(deleteItemRequest: DeleteItemRequest): void {
+        this.toDoListRepository.deleteToDoListItemById({id: parseInt(deleteItemRequest.id)});
+    }
 }
 
 export default ToDoListService;
