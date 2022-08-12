@@ -1,4 +1,4 @@
-import {DataTypes, Sequelize} from 'sequelize';
+import {Sequelize} from 'sequelize';
 
 class ToDoListRepository {
         private sequelize: Sequelize;
@@ -13,7 +13,7 @@ class ToDoListRepository {
         }
 
         async getAllToDoListItems(): Promise<ToDoListEntity> {
-                const [results] = await this.sequelize.query('SELECT text FROM list_items;')
+                const [results] = await this.sequelize.query('SELECT id, text FROM list_items;')
 
                 const toDoList: ToDoListEntity = [];
                 results.map((result: ToDoListEntityItem) => {

@@ -6,7 +6,7 @@ class ToDoListService {
         this.toDoListRepository = toDoListRepository;
     }
 
-    async addToDoListItem(toDoListRequest: ToDoListRequest): Promise<object> {
+    async addToDoListItem(toDoListRequest: AddItemRequest): Promise<object> {
         return await this.toDoListRepository.insertToDoListItem(toDoListRequest.item);
     }
 
@@ -15,7 +15,7 @@ class ToDoListService {
         const toDoList: ToDoList = [];
 
         results.map((result) => {
-            toDoList.push(result.text);
+            toDoList.push({itemId: result.id, item: result.text});
         })
 
         return toDoList;

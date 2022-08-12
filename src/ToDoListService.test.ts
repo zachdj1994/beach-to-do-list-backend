@@ -21,18 +21,18 @@ describe('The to do list service', () => {
     describe('getToDoList', () => {
         it('returns the to do list items from the repository layer', async () => {
             const resultFromRepository: ToDoListEntity = [
-                {text: 'Vibe'},
-                {text: 'Listen to the Pina Colada song or something?'},
-                {text: "SUNSCREEN DON'T FORGET AGAIN"},
-                {text: 'ooh, dolphins!!!'},
-                {text: 'Aloe vera (I forgot sunscreen again)'},
+                {id: 1, text: 'Vibe'},
+                {id: 2, text: 'Listen to the Pina Colada song or something?'},
+                {id: 3, text: "SUNSCREEN DON'T FORGET AGAIN"},
+                {id: 4, text: 'ooh, dolphins!!!'},
+                {id: 6, text: 'Aloe vera (I forgot sunscreen again)'},
             ];
             const expected =  [
-                'Vibe',
-                'Listen to the Pina Colada song or something?',
-                "SUNSCREEN DON'T FORGET AGAIN",
-                'ooh, dolphins!!!',
-                'Aloe vera (I forgot sunscreen again)',
+                {itemId: 1, item: 'Vibe'},
+                {itemId: 2, item: 'Listen to the Pina Colada song or something?'},
+                {itemId: 3, item: "SUNSCREEN DON'T FORGET AGAIN"},
+                {itemId: 4, item: 'ooh, dolphins!!!'},
+                {itemId: 6, item: 'Aloe vera (I forgot sunscreen again)'},
             ];
             mockGetToDoList.mockReturnValue(resultFromRepository)
 

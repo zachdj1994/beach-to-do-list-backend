@@ -1,4 +1,5 @@
-type ToDoList = string[];
+type ToDoList = ToDoListItem[];
+type ToDoListItem = {itemId: number, item: string};
 type ToDoListEntity = ToDoListEntityItem[];
-type ToDoListEntityItem = {text: string};
-type ToDoListRequest = {item: string};
+type ToDoListEntityItem = {id: number, text: string};
+type AddItemRequest = {item: string};
