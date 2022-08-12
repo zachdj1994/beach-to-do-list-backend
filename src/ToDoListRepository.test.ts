@@ -38,10 +38,20 @@ describe('The to do list repository', () => {
     describe('insertToDoListItem', () => {
        it('inserts an item into the db', () => {
            const repository = new ToDoListRepository(new Sequelize());
+           mockQuery.mockResolvedValue([[{id: 1}]]);
 
-            repository.insertToDoListItem('Vibe');
+           repository.insertToDoListItem('Vibe');
 
-           expect(mockQuery).toHaveBeenCalledWith("INSERT INTO list_items (text) VALUES ('Vibe');");
+           expect(mockQuery).toHaveBeenCalledWith("INSERT INTO list_items (text) VALUES ('Vibe') RETURNING id;");
+       });
+
+       it('returns the auto incremented id', async () => {
+           const repository = new ToDoListRepository(new Sequelize());
+           const expected: ToDoListEntityItem = {id: 1};
+           mockQuery.mockResolvedValue([[{id: 1}]]);
+
+           const actual = await repository.insertToDoListItem('Vibe');
+           expect(actual).toEqual(expected);
        });
     });
 });

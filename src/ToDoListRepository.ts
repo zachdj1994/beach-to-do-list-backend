@@ -7,9 +7,13 @@ class ToDoListRepository {
                 this.sequelize = sequelize;
         }
 
-        async insertToDoListItem(toDoListItem: string): Promise<object> {
-                this.sequelize.query(`INSERT INTO list_items (text) VALUES ('${toDoListItem}');`);
-                return Promise.resolve({});
+        async insertToDoListItem(toDoListItem: string): Promise<ToDoListEntityItem> {
+                const [results] = await this.sequelize.query(`INSERT INTO list_items (text) VALUES ('${toDoListItem}') RETURNING id;`);
+                let toDoListItemId: number;
+                results.map((result: {id: number}) => {
+                        toDoListItemId = result.id;
+                });
+                return {id: toDoListItemId};
         }
 
         async getAllToDoListItems(): Promise<ToDoListEntity> {

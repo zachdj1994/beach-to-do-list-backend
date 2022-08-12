@@ -48,10 +48,18 @@ describe('The to do list service', () => {
             const expected = 'Vibe';
             mockInsertToDoListItem.mockResolvedValue({});
 
-            const actual = await service.addToDoListItem({item: 'Vibe'});
+            await service.addToDoListItem({item: 'Vibe'});
 
             expect(mockInsertToDoListItem).toHaveBeenCalledWith(expected);
-            expect(actual).toEqual({});
+        });
+
+        it('returns the newly added items auto incremented id', async () => {
+            const expected: ToDoListItem = {itemId: 1};
+            mockInsertToDoListItem.mockResolvedValue({id: 1});
+
+            const actual: ToDoListItem = await service.addToDoListItem({item: 'Vibe'});
+
+            expect(actual).toEqual(expected);
         });
     });
 });
