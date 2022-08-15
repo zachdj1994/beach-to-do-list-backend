@@ -35,16 +35,18 @@ index.get( "/", (request, response ) => {
 
 index.get( "/toDoListItems", (request, response ) => {
     toDoListService.getToDoList().then((data: ToDoList) => {
-        response.send(
-            data
-        );
+        response.send(data);
     });
 });
 
 index.post( "/toDoListItems", express.json({type: '*/*'}), (request, response ) => {
-    toDoListService.addToDoListItem(request.body);
-    console.log(request.body);
-    response.json(request.body);
+    toDoListService.addToDoListItem(request.body).then((data: ToDoListItem) => {
+        response.send(data);
+    });
+});
+
+index.delete( "/toDoListItems", (request, response ) => {
+    toDoListService.deleteToDoListItemById(request.query as DeleteItemRequest);
 });
 
 index.listen( port, () => {
