@@ -1,6 +1,6 @@
 import {Sequelize} from 'sequelize';
 
-class ToDoListRepository {
+class ToDoListRepository implements ToDoListRepositoryInterface {
         private sequelize: Sequelize;
 
         constructor(sequelize: Sequelize) {

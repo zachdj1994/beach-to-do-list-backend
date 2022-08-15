@@ -1,8 +1,6 @@
-import ToDoListRepository from './ToDoListRepository';
-
 class ToDoListService {
-    private toDoListRepository: ToDoListRepository;
-    constructor(toDoListRepository: ToDoListRepository) {
+    private toDoListRepository: ToDoListRepositoryInterface;
+    constructor(toDoListRepository: ToDoListRepositoryInterface) {
         this.toDoListRepository = toDoListRepository;
     }
 
