@@ -6,6 +6,7 @@
   "scripts": {
     "prestart": "tsc --project tsconfig.build.json",
     "init": "bash setup_and_seed_database.sh && createdb $USER",
+    "init-cassandra": "bash setup_and_seed_cassandra_database.sh",
     "start": "node .",
     "test": "jest --watch"
   },
